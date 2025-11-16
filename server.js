@@ -51,15 +51,13 @@ const rooms = {};
 // ---------------- REWARD POOLS ----------------
 const tier1Pool = [
   "doublePoints", "shield",
-  "xp500", "blur10", "blackout10",
-  "tinyText"
+  "xp500", "blur10", "blackout10"
 ];
 
 const tier2Pool = [
    "shield", "doublePoints",
   "xp300", "blur5",
-  "blackout10",
-  "tinyText",
+  "blackout10"
 ];
 
 const tier3Pool = [
@@ -424,5 +422,6 @@ const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
   console.log(`\n🚀 Server running at: http://localhost:${PORT}\n`);
 });
+
 
 
