@@ -7,6 +7,8 @@ import dotenv from "dotenv";
 import OpenAI from "openai";
 import axios from "axios";
 
+import cors from "cors";
+app.use(cors());
 
 import path from "path";
 
@@ -419,4 +421,3 @@ const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
   console.log(`\n🚀 Server running at: http://localhost:${PORT}\n`);
 });
-
