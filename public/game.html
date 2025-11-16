@@ -1,0 +1,87 @@
+<!-- game.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz Chaos – Game</title>
+
+  <!-- Main styles -->
+  <link rel="stylesheet" href="app.css">
+  <link rel="icon" type="jpg" href="logo.jpg">
+
+  <!-- Confetti -->
+  <script src="https://unpkg.com/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+</head>
+
+<body class="game-body">
+
+<div class="game-container">
+
+  <!-- LEFT SIDEBAR -->
+  <div class="sidebar">
+    <h2 id="player-name">Player</h2>
+    <p>Score: <span id="player-score">0</span></p>
+
+
+    <h3>Your Powerups</h3>
+    <ul id="powerup-list"></ul>
+    </div>
+
+
+  <!-- MAIN GAME AREA -->
+  <div class="main-area">
+
+    <!-- QUESTION -->
+    <div class="question-box">
+      <h2 id="question-text">Waiting for question...</h2>
+    </div>
+
+    <!-- 4 OPTIONS -->
+    <div class="options-grid">
+      <button class="option" id="opt0"></button>
+      <button class="option" id="opt1"></button>
+      <button class="option" id="opt2"></button>
+      <button class="option" id="opt3"></button>
+    </div>
+
+  </div>
+
+</div>
+<!-- GLOBAL MODAL -->
+<!-- <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+        <h2 id="modalTitle">Powerup</h2>
+        <p id="modalMessage">Item description...</p>
+
+        <div id="modalTargetBox" style="margin-top:15px; display:none;"></div>
+
+        <button onclick="hideModal()">OK</button>
+    </div>
+</div> -->
+<div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+        <h2 id="modalTitle">Powerup</h2>
+        <p id="modalMessage"></p>
+
+        <div id="modalFooter" class="modal-footer"></div>
+    </div>
+</div>
+
+
+<script type="module">
+import { hideModal } from "./utils/modal.js";
+window.hideModal = hideModal;
+</script>
+
+<!-- SOCKET.IO -->
+<script src="/socket.io/socket.io.js"></script>
+
+<!-- GAME LOGIC -->
+<script type="module" src="game.js"></script>
+
+
+
+
+</body>
+</html>

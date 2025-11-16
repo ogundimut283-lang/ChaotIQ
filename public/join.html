@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Join a Quiz</title>
+  <link rel="stylesheet" href="app.css" />
+  <link rel="icon" type="jpg" href="logo.jpg">
+</head>
+<body>
+  <div class="image-container">
+    <img src="logo.jpg" alt="Quiz Chaos Logo">
+  </div>
+  <div class="container">
+    <h1>Join a Quiz</h1>
+
+    <form id="join-form">
+      <label>
+        Room code:
+        <input type="text" name="roomCode" required />
+      </label>
+      <label>
+        Your codename:
+        <input type="text" name="codename" required />
+      </label>
+      <button type="submit" class="btn">Join</button>
+    </form>
+
+    <div id="status"></div>
+
+    <div id="lobby" class="hidden">
+      <h2>Room Code: <span id="room-code"></span></h2>
+      <h3>Players</h3>
+      <ul id="players-list"></ul>
+      <p>Waiting for host to start...</p>
+    </div>
+
+    <div id="quiz" class="hidden">
+      <h2>Question <span id="q-index"></span>/<span id="q-total"></span></h2>
+      <p id="q-text"></p>
+      <div id="options"></div>
+    </div>
+
+    <div id="result-modal" class="modal hidden">
+      <div class="modal-content">
+        <h3 id="result-title"></h3>
+        <p id="result-explanation"></p>
+        <p id="result-extra"></p>
+        <button id="close-result" class="btn">OK</button>
+      </div>
+    </div>
+
+    <canvas id="confetti-canvas" class="hidden"></canvas>
+  </div>
+  <script src="https://unpkg.com/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script type="module" src="join.js"></script>
+
+
+</body>
+</html>

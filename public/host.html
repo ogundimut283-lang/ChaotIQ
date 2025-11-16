@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Host a Quiz</title>
+
+  <!-- Load global styles -->
+  <link rel="stylesheet" href="app.css" />
+
+  <!-- Website tab icon -->
+  <link rel="icon" type="jpg" href="logo.jpg">
+</head>
+
+<body>
+  <div class="image-container">
+    <img src="logo.jpg" alt="Quiz Chaos Logo">
+  </div>
+  <div class="container">
+
+    <h1>Host a Quiz</h1>
+
+    <form id="host-form">
+
+      <label>
+        Your codename:
+        <input type="text" name="codename" required />
+      </label>
+
+      <label>
+        Number of questions (5–20):
+        <input type="number" name="questionCount" min="5" max="20" value="10" />
+      </label>
+
+      <label>
+        Topic:
+        <input type="text" name="topic" placeholder="e.g. Photosynthesis, World War 2, Algebra" required />
+      </label>
+
+      <label>
+        Grade level:
+        <select name="grade" required>
+          <option value="">Choose...</option>
+          <option value="Middle School">Middle School</option>
+          <option value="High School">High School</option>
+          <option value="College">College</option>
+        </select>
+      </label>
+
+      <button type="submit" class="btn">Create Room</button>
+    </form>
+
+    <div id="status"></div>
+
+  </div>
+
+  <!-- Global modal -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <h2 id="modalTitle">Title</h2>
+      <p id="modalMessage">Message here...</p>
+      <button onclick="hideModal()">OK</button>
+    </div>
+  </div>
+
+  <script type="module" src="host.js"></script>
+  <script type="module" src="utils/modal.js"></script>
+
+</body>
+</html>

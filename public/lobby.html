@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Lobby</title>
+<link rel="stylesheet" href="app.css">
+<link rel="icon" type="jpg" href="logo.jpg">
+</head>
+<body>
+
+<div class="container">
+
+  <h1>Lobby</h1>
+  <h2>Room: <span id="room-code"></span></h2>
+
+  <h3>Players</h3>
+  <ul id="players-list"></ul>
+
+  <button id="start-game" class="btn hidden">Start Game</button>
+
+</div>
+<!-- GLOBAL MODAL -->
+<!-- <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+        <h2 id="modalTitle">Title</h2>
+        <p id="modalMessage">Message here...</p>
+        <button onclick="hideModal()">OK</button>
+    </div>
+</div> -->
+<div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+        <h2 id="modalTitle">Powerup</h2>
+        <p id="modalMessage"></p>
+
+        <div id="modalFooter" class="modal-footer"></div>
+    </div>
+</div>
+
+<script type="module">
+import { hideModal } from "./utils/modal.js";
+window.hideModal = hideModal;
+</script>
+
+<script src="/socket.io/socket.io.js"></script>
+<script type="module" src="lobby.js"></script>
+
+</body>
+</html>
