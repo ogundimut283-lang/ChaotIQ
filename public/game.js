@@ -38,7 +38,7 @@ playerScoreEl.textContent = "0";
 
 
 // ======= SOCKET SETUP =======
-const socket = io("https://chaotiq.onrender.com");
+const socket = io("https://chaotiqq.onrender.com");
 let hasAnsweredCurrent = false;
 
 // Re-join room on game page
@@ -315,4 +315,5 @@ function openPowerupModal(item) {
         });
     }
 }
+
 
