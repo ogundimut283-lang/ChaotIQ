@@ -38,15 +38,22 @@ playerScoreEl.textContent = "0";
 
 
 // ======= SOCKET SETUP =======
-const socket = io("https://chaotiqq.onrender.com");
+
+const socket = io("https://chaotiqq.onrender.com", {
+    transports: ["websocket"],
+    secure: true
+});
+
 let hasAnsweredCurrent = false;
 
 // Re-join room on game page
-if (isHost) {
-  socket.emit("hostJoinRoom", { roomCode, codename });
-} else {
-  socket.emit("joinRoom", { roomCode, codename });
-}
+socket.on("connect", () => {
+    if (isHost) {
+        socket.emit("hostJoinRoom", { roomCode, codename });
+    } else {
+        socket.emit("joinRoom", { roomCode, codename });
+    }
+});
 
 
 
@@ -208,20 +215,88 @@ function showGameOver(players) {
 
 
 
-// ======= SABOTAGE EFFECTS (basic stubs) =======
+// // ======= SABOTAGE EFFECTS (basic stubs) =======
+// function applySabotageEffect(item) {
+
+//     switch (item) {
+
+//         // ===== SABOTAGES =====
+
+//         case "blur10":
+//             showModal("Sabotage! Blur 🌫️", "Your screen is blurred for 10 seconds!");
+//             blurScreen(10000);
+//             break;
+
+//         case "blur5":
+//             showModal("Sabotage! Blurr 🌫️", "Your screen is blurred for 5 seconds!");
+//             blurScreen(5000);
+//             break;
+
+//         case "blackout10":
+//             showModal("Sabotage! BlackOut 🌑", "Your screen is completely blacked out for 10 seconds!");
+//             blackout(10000);
+//             break;
+
+//         case "tinyText":
+//             showModal("Sabotage! Tiny Text 🔎", "All text shrinks to tiny size for 10 seconds!");
+//             tinyTextEffect(10000);
+//             break;
+
+
+//         // ===== BUFFS =====
+
+//         case "doublePoints":
+//             showModal("Powerup! Double Points ⚡", "Your next correct answer gives DOUBLE points!");
+//             break;
+
+//         case "shield":
+//             showModal("Powerup! Shield 🛡️", "A shield now protects you from one sabotage.");
+//             break;
+//         case "xp500":
+//             showModal("Powerup! +XP500 💡", "Extra 500 points for a correct answer.");
+//             addXP(500);
+//             break;
+//         case "xp300":
+//             showModal("Powerup! +XP300 💡", "Extra 300 points for a correct answer.");
+//             addXP(300);
+//             break;
+//         case "xp100":
+//             showModal("Powerup! +XP100 💡", "Extra 100 points for a correct answer.");
+//             addXP(100);
+//             break;
+
+
+//         default:
+//             console.log("Unknown powerup:", item);
+//     }
+// }
+
+
+// function addXP(amount) {
+//     const current = parseInt(playerScoreEl.textContent);
+//     playerScoreEl.textContent = current + amount;
+//     showModal("XP Gained!", `+${amount} bonus points!`);
+// }
+
+
+function showActiveEffect(text) {
+    const indicator = document.createElement("div");
+    indicator.className = "powerup-active";
+    indicator.textContent = text;
+    document.body.appendChild(indicator);
+}
+
+// ✅ CORRECTED: applySabotageEffect function
 function applySabotageEffect(item) {
-
     switch (item) {
-
         // ===== SABOTAGES =====
-
         case "blur10":
             showModal("Sabotage! Blur 🌫️", "Your screen is blurred for 10 seconds!");
             blurScreen(10000);
             break;
 
         case "blur5":
-            showModal("Sabotage! Blurr 🌫️", "Your screen is blurred for 5 seconds!");
+            showModal("Sabotage! Blur 🌫️", "Your screen is blurred for 5 seconds!");
             blurScreen(5000);
             break;
 
@@ -235,64 +310,56 @@ function applySabotageEffect(item) {
             tinyTextEffect(10000);
             break;
 
-
         // ===== BUFFS =====
-
         case "doublePoints":
             showModal("Powerup! Double Points ⚡", "Your next correct answer gives DOUBLE points!");
+            showActiveEffect("⚡ 2x Points"); // ✅ Show visual indicator
             break;
 
         case "shield":
             showModal("Powerup! Shield 🛡️", "A shield now protects you from one sabotage.");
-            break;
-        case "xp500":
-            showModal("Powerup! +XP500 💡", "Extra 500 points for a correct answer.");
-            addXP(500);
-            break;
-        case "xp300":
-            showModal("Powerup! +XP300 💡", "Extra 300 points for a correct answer.");
-            addXP(300);
-            break;
-        case "xp100":
-            showModal("Powerup! +XP100 💡", "Extra 100 points for a correct answer.");
-            addXP(100);
+            showActiveEffect("🛡️ Shield"); // ✅ Show visual indicator
             break;
 
+        // ✅ XP BUFFS - Don't add locally, server already did it
+        case "xp500":
+            showModal("Powerup! +500 XP 💡", "You gained 500 bonus points!");
+            // Score already updated by server via roomState
+            break;
+
+        case "xp300":
+            showModal("Powerup! +300 XP 💡", "You gained 300 bonus points!");
+            break;
+
+        case "xp100":
+            showModal("Powerup! +100 XP 💡", "You gained 100 bonus points!");
+            break;
 
         default:
             console.log("Unknown powerup:", item);
     }
 }
 
-
 function blurScreen(ms) {
-  document.body.style.filter = "blur(4px)";
-  setTimeout(() => {
-    document.body.style.filter = "none";
-  }, ms);
-}
+   document.body.style.filter = "blur(4px)";
+   setTimeout(() => {
+     document.body.style.filter = "none";
+   }, ms);
+ }
 
 function blackout(ms) {
-  const overlay = document.createElement("div");
-  overlay.className = "blackout";
-  document.body.appendChild(overlay);
-  setTimeout(() => overlay.remove(), ms);
-}
+   const overlay = document.createElement("div");
+   overlay.className = "blackout";
+   document.body.appendChild(overlay);
+   setTimeout(() => overlay.remove(), ms);
+ }
 
 function tinyTextEffect(ms) {
-  document.body.classList.add("tiny-text");
-  setTimeout(() => {
-    document.body.classList.remove("tiny-text");
-  }, ms);
-}
-function addXP(amount) {
-    const current = parseInt(playerScoreEl.textContent);
-    playerScoreEl.textContent = current + amount;
-    showModal("XP Gained!", `+${amount} bonus points!`);
-}
-
-
-
+   document.body.classList.add("tiny-text");
+   setTimeout(() => {
+     document.body.classList.remove("tiny-text");
+   }, ms);
+ }
 
 function openPowerupModal(item) {
     const sabotageItems = ["blur10", "blur5", "blackout10", "tinyText"];
@@ -315,5 +382,3 @@ function openPowerupModal(item) {
         });
     }
 }
-
-
