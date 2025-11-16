@@ -136,7 +136,7 @@ roomCodeSpan.textContent = roomCode;
 // Show start button only to host
 if (isHost) startGameBtn.classList.remove("hidden");
 
-const socket = io();
+const socket = io("https://chaotiq.onrender.com");
 
 // Join room once connected
 socket.on("connect", () => {
@@ -171,3 +171,4 @@ socket.on("gameStarted", () => {
   url.searchParams.set("host", isHost);
   window.location.href = url.toString();
 });
+
