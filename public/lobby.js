@@ -171,5 +171,3 @@ socket.on("gameStarted", () => {
   url.searchParams.set("host", isHost);
   window.location.href = url.toString();
 });
-
-
