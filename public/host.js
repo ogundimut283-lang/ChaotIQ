@@ -116,7 +116,7 @@ form.addEventListener("submit", async (e) => {
   }
 
   // ⭐ API for creating room
-  const res = await fetch("/api/create-room", {
+  const res = await fetch("https://chaotiqq.onrender.com/api/create-room", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
