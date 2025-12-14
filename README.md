@@ -180,19 +180,3 @@ case "blur10":
     blurScreen(10000);
     break;
 
-🚧 Roadmap
-
-🎤 Voice-based questions
-
-🎨 Custom avatars
-
-🛡️ More advanced defenses
-
-🆚 Team battles mode
-
-🏁 Tournament mode
-
-🤝 Contributing
-
-Pull requests are welcome!
-Feel free to open issues or request new features.
